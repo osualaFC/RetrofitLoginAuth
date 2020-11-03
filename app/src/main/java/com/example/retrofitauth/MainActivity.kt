@@ -2,7 +2,6 @@ package com.example.retrofitauth
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.example.retrofitauth.data.ApiClient
 import com.example.retrofitauth.data.responses.PostsResponse
 import com.example.retrofitauth.utils.SessionManager
@@ -26,7 +25,8 @@ class MainActivity : AppCompatActivity() {
      * Function to fetch posts
      */
     private fun fetchPosts() {
-        apiClient.getApiService(this).fetchPosts()
+        // Pass the token as parameter
+        apiClient.getApiService(this).fetchPosts(token = "Bearer ${sessionManager.fetchAuthToken()}")
             .enqueue(object : Callback<PostsResponse> {
                 override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
                     // Error fetching posts

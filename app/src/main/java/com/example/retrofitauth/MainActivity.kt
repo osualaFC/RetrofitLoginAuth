@@ -18,7 +18,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         apiClient = ApiClient()
+
         sessionManager = SessionManager(this)
+
+        fetchPosts()
     }
 
     /**
@@ -26,7 +29,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun fetchPosts() {
         // Pass the token as parameter
-        apiClient.getApiService(this).fetchPosts(token = "Bearer ${sessionManager.fetchAuthToken()}")
+        apiClient.getApiService(this).fetchPosts()
             .enqueue(object : Callback<PostsResponse> {
                 override fun onFailure(call: Call<PostsResponse>, t: Throwable) {
                     // Error fetching posts
@@ -37,6 +40,12 @@ class MainActivity : AppCompatActivity() {
                 }
             })
     }
+
+    /**
+     * when you login, the server returns a response containing ur authToken
+     * You will need to save the authToken using sharedPefs
+     * In your apiClient, create an Authenticator which will add to token to ur next requests
+     * **/
 
 
 }

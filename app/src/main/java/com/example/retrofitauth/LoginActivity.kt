@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
                         sessionManager.saveAuthToken(loginResponse.authToken)
                     } else {
                         // Error logging in
+                        //invalidate the session
                     }
                 }
             })
